@@ -1,10 +1,11 @@
 import axios from 'axios';
 
 const API = axios.create({
-  baseURL: '/api',
+  baseURL: import.meta.env.VITE_API_URL
+    ? `${import.meta.env.VITE_API_URL}/api`
+    : '/api',
 });
 
-// Har request ke saath auto token bhej do agar user logged in hai
 API.interceptors.request.use((req) => {
   const userInfo = localStorage.getItem('userInfo');
   if (userInfo) {
